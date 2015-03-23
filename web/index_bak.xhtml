@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Index-Seite</title>
+    </h:head>
+    <h:body>
+        Buchverleih
+        <h:form>
+            <h:outputText  value="Wählen Sie den Kunden aus"/>
+            <h:selectOneMenu value="#{leihBean.kundeId}" >    <br></br>
+                <f:selectItems value="#{leihBean.alleKundenMap}"/>
+            </h:selectOneMenu>
+            <br></br><br></br>
+            <h:outputText value="Wählen Sie das zu verleihende Exemplar aus"/>
+            <h:selectOneMenu value="#{leihBean.exemplarId}" >   <br></br>
+                <f:selectItems value="#{leihBean.alleVerfuegbarBuecher}"/>
+            </h:selectOneMenu>
+            <br></br>
+            <h:commandButton action="#{leihBean.confirmLeihe()}" value="Buch verleihen" ></h:commandButton>
+            <h:commandButton action="#{leihBean.zurLeihIDPage()}" value="Suche nach LeihID" ></h:commandButton>
+            <h:commandButton action="newBuchTitle" value="Neues Buch/Exemplar anlegen" ></h:commandButton>
+        </h:form>
+
+
+        <h:dataTable value="#{leihBean.showLeihTable()}" var="l"  border="1">
+            <h:column>
+                <!--SpaltenÜberschrift-->
+                <f:facet name="header">
+                    Leihnummer
+                </f:facet>
+                <!--Zeilenaufbau Record-->
+                #{l.leihId}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Kundenname
+                </f:facet>
+                #{l.kundeFname} #{l.kundeNname} 
+            </h:column>
+          <!--  <h:column>
+                <f:facet name="header">
+                    Leihdatum
+                </f:facet>
+                #{l.leihDatum.toLocaleString().substring(0,10)}
+            </h:column>-->
+            <h:column>
+                <f:facet name="header">
+                    Buchtitel
+                </f:facet>
+                #{l.buchtitel} 
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Verlag
+                </f:facet>
+                #{l.verlag} 
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    ISBN
+                </f:facet>
+                #{l.isbn} 
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Exemplar
+                </f:facet>
+                #{l.exemplarnummer} 
+            </h:column>
+             <h:column>
+                <f:facet name="header">
+                    Author
+                </f:facet>
+            #{l.author}
+            </h:column>  
+        </h:dataTable>
+    </h:body>
+</html>
+

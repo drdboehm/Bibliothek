@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        Neues Buch/Exemplar anlegen 
+        <h:form>
+            <h:outputText value="Wählen Sie Nachname, Vorname, GebDatum des Autors aus, oder wählen Sie neuen Autor anlegen: "/>
+
+            <h:selectOneMenu value="#{buchBean.authorId}" >    <br></br>
+                <f:selectItems value="#{buchBean.allAuthorMap}"/>
+            </h:selectOneMenu>
+            <h:commandButton action="#{buchBean.evaluateAuthor()}" value="Autorenwahl abschicken"/>
+            <c:choose>
+                <c:when test="${buchBean.authorId==0}">
+                    <h1>Neuer Autor</h1>
+                    <h:outputText value="Bitte den Namen und Geburtsdatum des Autors eingeben: " /><br/>
+                    <h:outputText value="Bitte den Vornamen eingeben: " />
+                    <h:inputText id="Fname"  value="#{buchBean.authorFname}"></h:inputText> <br/>
+                    <h:outputText value="Bitte den Nachnamen eingeben: " /> 
+                    <h:inputText id="Lname"  value="#{buchBean.authorLname}"></h:inputText> <br/>
+                    <h:outputText value="Bitte das Geburtsdatum eingeben [dd-mm-yyyy]: " />
+                    <h:inputText id="Geb"  value="#{buchBean.authorGeb}"></h:inputText>
+                    
+                   
+
+                </c:when>
+                <c:when test="${buchBean.authorId != 0}">
+                    <c:when test="${not empty buchBean.authorId}">
+                        <h1>Bekannter Autor</h1>
+                        <h:outputText value="#{buchBean.author.authorFname}  " /> 
+                        <h:outputText value="#{buchBean.author.authorLname}  " />
+                        <h:outputText value="#{buchBean.author.authorGeb.toLocaleString().subSequence(0, 10)}" />
+
+                    </c:when>
+                </c:when>
+            </c:choose>
+            <br/><h:commandButton type="submit" value="Abschicken" action="#{buchBean.setNewAuthor()}"/>
+        </h:form>
+
+    </h:body>
+</html>
+

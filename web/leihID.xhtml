@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        Buchverleih
+        <h:form>
+            <h:outputText value="Wählen Sie die LeihId aus"/>
+            <h:selectOneMenu id="auswahl" value="#{leihBean.kundeId}" onchange="submit()">    <br></br>
+                <f:selectItems value="#{leihBean.alleKundenMap}"/>
+            </h:selectOneMenu>
+            <br></br><br></br>
+
+
+
+        </h:form>
+        <h:dataTable value="#{leihBean.leihscheinByKunde}" var="l"  border="1">
+            <h:column>
+                <!--SpaltenÜberschrift-->
+                <f:facet name="header">
+                    Leihnummer
+                </f:facet>
+                <!--Zeilenaufbau Record-->
+                #{l.leihId}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Kundenname
+                </f:facet>
+                #{l.kundeFname} #{l.kundeNname} 
+            </h:column>
+            <!--  <h:column>
+                  <f:facet name="header">
+                      Leihdatum
+                  </f:facet>
+            #{l.leihDatum.toLocaleString().substring(0,10)}
+        </h:column>-->
+            <h:column>
+                <f:facet name="header">
+                    Buchtitel
+                </f:facet>
+                #{l.buchtitel} 
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Verlag
+                </f:facet>
+                #{l.verlag} 
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    ISBN
+                </f:facet>
+                #{l.isbn} 
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Exemplar
+                </f:facet>
+                #{l.exemplarnummer} 
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Author
+                </f:facet>
+                #{l.author}
+            </h:column>  
+        </h:dataTable>
+    </h:body>
+</html>
+

@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <c:choose>
+            <c:when test="${not empty buchBean.autorenList}">
+                <h:outputText value="zugefügter Autor: "/><br/>
+                <h:dataTable value="#{buchBean.autorenList}" var="a">
+                    <h:column>#{a.authorId}</h:column>
+                    <h:column>#{a.authorFname}</h:column>
+                    <h:column>#{a.authorLname}</h:column>
+                    <h:column>#{a.authorGeb}</h:column>
+                </h:dataTable>
+            </c:when>
+        </c:choose>
+
+        Neues Buch/Exemplar anlegen 
+        <h:form>
+
+            <h1>Daten des Autors</h1>
+            <h:outputText value="Bitte den Namen und Geburtsdatum des Autors eingeben: " /><br/>
+            <h:outputText value="Bitte den Vornamen eingeben: " />
+            <h:inputText id="Fname"  value="#{buchBean.authorFname}"></h:inputText> <br/>
+            <h:outputText value="Bitte den Nachnamen eingeben: " /> 
+            <h:inputText id="Lname"  value="#{buchBean.authorLname}"></h:inputText> <br/>
+            <h:outputText value="Bitte das Geburtsdatum eingeben [yyy-mm-dd]: " />
+            <h:inputText id="Geb"  value="#{buchBean.authorGeb}"></h:inputText>
+            <br/><h:commandButton type="submit" value="Autorenliste löschen" action="#{buchBean.resetAuthors()}"/>
+            <br/><h:commandButton type="submit" value="weiteren Autor zufügen" action="#{buchBean.addNewAuthor()}"/>
+            <br/><h:commandButton type="submit" value="Abschicken" action="#{buchBean.setAllAuthors()}"/>
+        </h:form>
+        <h:form>
+            <c:choose>
+                <c:when test="${empty buchBean.buchId}">
+                    <h1>Buchdaten</h1>
+                    <h:outputText value="Bitte die Buch und Verlagsdaten eingeben " /><br/>
+                    <h:outputText value="Bitte den Buchtitel eingeben: " />
+                    <h:inputText id="Btitel"  value="#{buchBean.buchTitel}"></h:inputText> <br/>
+                    <h:outputText value="Bitte den Verlag eingeben: " /> 
+                    <h:inputText id="Vname"  value="#{buchBean.verlagName}"></h:inputText> <br/>
+                    <h:outputText value="Bitte die ISBN eingeben: " />
+                    <h:inputText id="Bisbn"  value="#{buchBean.verlagBuchISBN}"></h:inputText> <br/>
+                    <h:outputText value="Bitte die Exemplarnr eingeben: " />
+                    <h:inputText id="Enr"  value="#{buchBean.exampleNr}"></h:inputText> <br/>
+                    <h:commandButton value="fertig" action="#{buchBean.submitBuchEntry()}" />
+                </c:when>
+            </c:choose>
+        </h:form>
+    </h:body>
+</html>
+
